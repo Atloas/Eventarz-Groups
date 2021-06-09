@@ -1,0 +1,20 @@
+spring:
+  cloud.loadbalancer.ribbon.enabled: false
+  application:
+    name: "eventarz-groups"
+  datasource:
+    username: eventarz-admin
+    password: Password1
+    url: jdbc:sqlserver://eventarz-sql-server.database.windows.net:1433;database=EventarzGroups
+  jpa:
+    database-platform: org.hibernate.dialect.SQLServerDialect
+    hibernate:
+      ddl-auto: update
+
+server:
+  error:
+    includeMessage: always
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
