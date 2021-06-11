@@ -36,9 +36,6 @@ public class Group {
     @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Member> members;
-    @JsonManagedReference
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Event> events;
 
     public Group(GroupForm groupForm) {
         this.name = groupForm.getName();
@@ -46,7 +43,6 @@ public class Group {
         this.createdDate = groupForm.getCreatedDate();
         this.founderUsername = groupForm.getFounderUsername();
         this.members = new ArrayList<>();
-        this.events = new ArrayList<>();
     }
 
     public void join(String username) {
@@ -58,32 +54,6 @@ public class Group {
             if (member.getUsername().equals(username)) {
                 members.remove(member);
                 return;
-            }
-        }
-    }
-
-    public void postEvent(EventForm eventForm) {
-        this.events.add(new Event(this, eventForm.getEventUuid(), eventForm.getOrganizerUsername()));
-    }
-
-    public void removeEventsByEventUuids(String[] eventUuids) {
-        for (String eventUuid : eventUuids) {
-            this.removeEventByEventUuid(eventUuid);
-        }
-    }
-
-    public void removeEventsByUsername(String username) {
-        for (Event event : events) {
-            if (event.getOrganizerUsername().equals(username)) {
-                events.remove(event);
-            }
-        }
-    }
-
-    public void removeEventByEventUuid(String eventUuid) {
-        for (Event event : events) {
-            if (event.getEventUuid().equals(eventUuid)) {
-                events.remove(event);
             }
         }
     }

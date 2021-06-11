@@ -17,13 +17,11 @@ package com.agh.EventarzGroups.controllers;
 
 import com.agh.EventarzGroups.EventarzGroupsApplication;
 import com.agh.EventarzGroups.exceptions.GroupNotFoundException;
-import com.agh.EventarzGroups.model.EventForm;
 import com.agh.EventarzGroups.model.Group;
 import com.agh.EventarzGroups.model.GroupForm;
 import com.agh.EventarzGroups.services.GroupService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,10 +38,14 @@ import java.util.List;
 @RestController
 public class GroupController {
 
-    @Autowired
-    private GroupService groupService;
+    private final GroupService groupService;
 
+    // TODO: Logging
     private final static Logger log = LoggerFactory.getLogger(EventarzGroupsApplication.class);
+
+    public GroupController(GroupService groupService) {
+        this.groupService = groupService;
+    }
 
     @GetMapping(value = "/groups", params = {"founderUsername"})
     public List<Group> getFoundedGroups(@RequestParam String founderUsername) {
@@ -111,24 +113,6 @@ public class GroupController {
     public Group leaveGroup(@PathVariable String uuid, @PathVariable String username) {
         try {
             return groupService.leaveGroup(uuid, username);
-        } catch (GroupNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Group not found!", e);
-        }
-    }
-
-    @PostMapping("/groups/{uuid}/events")
-    public void postEvent(@PathVariable String uuid, @RequestBody EventForm eventForm) {
-        try {
-            groupService.postEvent(uuid, eventForm);
-        } catch (GroupNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Group not found!", e);
-        }
-    }
-
-    @DeleteMapping("/groups/{uuid}/events/{eventUuids}")
-    public void deleteEvent(@PathVariable String uuid, @PathVariable String[] eventUuids) {
-        try {
-            groupService.removeEvent(uuid, eventUuids);
         } catch (GroupNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Group not found!", e);
         }
