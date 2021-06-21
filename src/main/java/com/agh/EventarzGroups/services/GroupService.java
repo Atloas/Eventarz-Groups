@@ -4,6 +4,7 @@ import com.agh.EventarzGroups.exceptions.GroupNotFoundException;
 import com.agh.EventarzGroups.model.Group;
 import com.agh.EventarzGroups.model.GroupForm;
 import com.agh.EventarzGroups.repositories.GroupRepository;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,8 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
+@Retry(name = "GroupServiceRetry")
+@CircuitBreaker(name = "GroupServiceCircuitBreaker")
 public class GroupService {
 
     private final GroupRepository groupRepository;
@@ -40,13 +43,13 @@ public class GroupService {
     }
 
     public List<Group> getMyGroups(String username) {
-        // TODO: Effectively the same as getJoinedGroups since you can't have founded a group and not be in it, remove
+        // Effectively the same as getJoinedGroups since you can't have founded a group and not be in it, at least for now
         List<Group> joinedGroups = groupRepository.findJoinedGroups(username);
         return joinedGroups;
     }
 
     public List<Group> getGroupsByName(String name) {
-        List<Group> groups = groupRepository.findByNameLikeIgnoreCase(name);
+        List<Group> groups = groupRepository.findByNameLikeIgnoreCase("%" + name + "%");
         return groups;
     }
 

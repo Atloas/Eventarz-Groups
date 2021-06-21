@@ -12,9 +12,6 @@ import java.util.List;
 
 @Repository
 @Transactional(readOnly = true)
-// TODO: I don't actually use those methods much so the Retry and CircuitBreaker probably dn't really work?
-@Retry(name = "GroupRepositoryRetry")
-@CircuitBreaker(name = "GroupRepositoryCircuitBreaker")
 public interface GroupRepository extends CrudRepository<Group, String> {
 
     Group findByUuid(String uuid);
