@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-@Transactional(readOnly = true)
 public interface GroupRepository extends CrudRepository<Group, String> {
 
     Group findByUuid(String uuid);
@@ -26,6 +25,5 @@ public interface GroupRepository extends CrudRepository<Group, String> {
     @Query("SELECT g FROM group g INNER JOIN g.members m WHERE m.username = :username ")
     List<Group> findJoinedGroups(String username);
 
-    @Transactional
     void deleteByUuid(String uuid);
 }
