@@ -1,12 +1,9 @@
 package com.agh.EventarzGroups.repositories;
 
 import com.agh.EventarzGroups.model.Group;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-import io.github.resilience4j.retry.annotation.Retry;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

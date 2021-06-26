@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class EventarzGroupsApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(EventarzGroupsApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(EventarzGroupsApplication.class, args);
+    }
 
 }
