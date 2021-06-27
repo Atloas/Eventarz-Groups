@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: eventarz-groups
+  name: eventarz-groups
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eventarz-groups
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: eventarz-groups
+    spec:
+      containers:
+        - image: eventarzregistry.azurecr.io/eventarz-groups:latest
+          name: eventarz-groups
+          resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: eventarz-groups
+  name: eventarz-groups
+spec:
+  ports:
+    - name: 8080-8080
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: eventarz-groups
+  type: ClusterIP
