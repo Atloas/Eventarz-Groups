@@ -21,6 +21,9 @@ spec:
         - image: eventarzcontainerregistry.azurecr.io/eventarz-groups:latest
           name: eventarz-groups
           resources: {}
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod
 status: {}
 ---
 apiVersion: v1
