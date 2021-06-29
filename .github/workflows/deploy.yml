@@ -7,7 +7,7 @@ env:
   MANIFEST: 'deployment.yml'
 
 on:
-  push:
+  push:                                                                                                                            
     branches: [main]
   workflow_dispatch:
 
