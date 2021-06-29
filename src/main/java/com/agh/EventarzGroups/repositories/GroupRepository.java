@@ -1,6 +1,7 @@
 package com.agh.EventarzGroups.repositories;
 
 import com.agh.EventarzGroups.model.Group;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -22,5 +23,6 @@ public interface GroupRepository extends CrudRepository<Group, String> {
     @Query("SELECT g FROM group g INNER JOIN g.members m WHERE m.username = :username ")
     List<Group> findJoinedGroups(String username);
 
+    @Modifying
     void deleteByUuid(String uuid);
 }
