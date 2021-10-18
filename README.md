@@ -12,5 +12,5 @@ A part of my Master's dissertation - a simple web application for organizing eve
 
 ---
 
-This microservice handles user group data by accessing a dedicated database.
+This microservice handles group data by accessing a dedicated database.
 It exposes a REST API that in turn performs simple CRUD operations.
